@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --color-teal: #063f46;
+  --color-teal-hero: #08393e; /* sampled from the hero illustration background */
+  --color-ink: #102426;
+  --color-cream: #fff7e8;
+  --color-paper: #fbf3e6; /* sampled from the product montage background */
+  --color-gold: #ffc72c;
+  --color-coral: #ff775e;
+  --color-leaf: #248b68;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(16 36 38 / 0.05), 0 12px 32px -12px rgb(16 36 38 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(16 36 38 / 0.06), 0 22px 44px -16px rgb(16 36 38 / 0.28);
+}
+
+html {
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Paper-like grain used on cream sections */
+.paper-texture {
+  background-image:
+    radial-gradient(rgb(16 36 38 / 0.035) 1px, transparent 1px),
+    radial-gradient(rgb(16 36 38 / 0.025) 1px, transparent 1px);
+  background-size: 22px 22px, 31px 31px;
+  background-position: 0 0, 11px 15px;
+}
+
+dialog::backdrop {
+  background: rgb(16 36 38 / 0.55);
+  backdrop-filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  dialog[open] {
+    animation: dialog-in 220ms ease-out;
+  }
+
+  /* Scroll-driven entrance: progressive enhancement, no JS. Browsers without
+     support simply show content immediately. */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+
+  .hero-enter {
+    animation: hero-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-enter-delay {
+    animation: hero-in 700ms 120ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
